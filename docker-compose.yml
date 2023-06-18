@@ -1,0 +1,64 @@
+version: "3.7"
+services:
+
+  mysql_db:
+    platform: linux/x86_64
+    image: mysql:latest
+    restart: always
+    command:
+      - --lower_case_table_names=1
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+    container_name: coupon_mysql
+    ports:
+      - "3309:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - TZ=Asia/Seoul
+
+  redis:
+    platform: linux/x86_64
+    image: redis:7.0-alpine
+    restart: always
+
+    container_name: coupon_redis
+    ports:
+      - "56379:6379"
+
+  zookeeper:
+    platform: linux/x86_64
+    image: wurstmeister/zookeeper
+    container_name: coupon_zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    platform: linux/x86_64
+    image: wurstmeister/kafka:2.12-2.5.0
+    container_name: coupon_kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  akhq:
+    platform: linux/x86_64
+    image: tchiotludo/akhq:latest
+    hostname: akhq
+    depends_on:
+      - kafka
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connection:
+            kafka:
+              properties:
+                bootstrap.servers: coupon_kafka:9092
+    ports:
+      - "9090:8080"

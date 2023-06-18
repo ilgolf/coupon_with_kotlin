@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3309/coupon
+    username: root
+    password: 1234
+
+kafka:
+  host: localhost
+  port: 9092
+  group-id: group_1
