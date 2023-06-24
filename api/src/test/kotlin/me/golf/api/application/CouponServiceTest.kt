@@ -1,7 +1,7 @@
 package me.golf.api.application
 
-import me.golf.api.domain.application.CouponService
-import me.golf.api.domain.persist.CouponRepository
+import me.golf.api.domain.coupon.application.CouponService
+import me.golf.api.domain.coupon.persist.CouponRepository
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName

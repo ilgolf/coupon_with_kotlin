@@ -1,4 +1,4 @@
-package me.golf.api.domain.persist
+package me.golf.api.domain.coupon.persist
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

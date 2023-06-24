@@ -1,9 +1,9 @@
-package me.golf.api.domain.application
+package me.golf.api.domain.coupon.application
 
-import me.golf.api.domain.persist.Coupon
-import me.golf.api.domain.persist.CouponCountRepository
-import me.golf.api.domain.persist.CouponRepository
-import me.golf.api.producer.CouponCreateProducer
+import me.golf.api.domain.coupon.persist.Coupon
+import me.golf.api.domain.coupon.persist.CouponCountRepository
+import me.golf.api.domain.coupon.persist.CouponRepository
+import me.golf.api.domain.coupon.producer.CouponCreateProducer
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -45,6 +45,11 @@ class CouponService(
         }
 
         couponCreateProducer.create(userId)
+    }
+
+    @Transactional
+    fun failCouponRetry(userId: Long) {
+        couponRepository.save(Coupon(userId))
     }
 
     private fun couponCountCheck(count: Long) {

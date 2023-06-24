@@ -1,4 +1,4 @@
-package me.golf.api.producer
+package me.golf.api.domain.coupon.producer
 
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component

@@ -1,4 +1,4 @@
-package me.golf.api.domain.persist
+package me.golf.api.domain.coupon.persist
 
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
